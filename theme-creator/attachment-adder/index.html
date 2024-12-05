@@ -32,8 +32,10 @@
         </div>
         <script>
             runThemeAttachment = function() {
-                attachment    = $("#theme-attachment").val()
-                themeJsonData = $("#theme-json-input").val()
+                attachment    = $("#theme-attachment").val();
+                themeJsonData = $("#theme-json-input").val();
+                outputData = attachment + themeJsonData;
+                $("#theme-attachment-output").val(outputData);
             }
         </script>
     </body>
