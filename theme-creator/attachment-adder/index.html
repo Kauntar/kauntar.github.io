@@ -40,9 +40,7 @@
                 themeJsonString = $("#theme-json-input").val();
                 try{
                     themeJsonData = JSON.parse(themeJsonString);
-                    $.get("snippet/"+attachment+".json", function(data, status){
-                        var responseJson = data;
-                    });
+                    responseJson = $.get("snippet/"+attachment+".json", function(data, status){return data;});
                     combinedJson = $.extend(responseJson, themeJsonData);
                     combinedJsonString = JSON.stringify(combinedJson);
                     $("#theme-attachment-output").val(combinedJsonString);
