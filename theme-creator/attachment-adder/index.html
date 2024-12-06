@@ -40,11 +40,10 @@
                 themeJsonString = $("#theme-json-input").val();
                 try{
                     themeJsonData = JSON.parse(themeJsonString);
-                    let responseJson = "";
-                    responseJson = $.get("snippet/"+attachment+".json", function(data, status){
-                        return data;
+                    $.get("snippet/"+attachment+".json", function(data, status){
+                        window.responseJson = data;
                     });
-                    combinedJson = $.extend(responseJson, themeJsonData);
+                    combinedJson = $.extend(window.responseJson, themeJsonData);
                     combinedJsonString = JSON.stringify(combinedJson);
                     $("#theme-attachment-output").val(combinedJsonString);
                 } catch (err) {
