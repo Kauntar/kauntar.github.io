@@ -17,7 +17,7 @@
                 <textarea class="input" id="theme-json-input"></textarea><br>
                 <label for="theme-attachment">Attachment Choice</label><br>
                 <select class="input" id="theme-attachment">
-                    <option val="bot-tag">Bot Tag</option>
+                    <option data-snip="bot-tag">Bot Tag</option>
                 </select>
                 <br>
                 <button onclick="runThemeAttachment()" style="background:red;border:darkred;border-radius:15px;padding:3px;">Combine</button>
@@ -31,7 +31,7 @@
         <script>
             runThemeAttachment = function() {
                 // The code snippet of choice
-                attachment = $("#theme-attachment").val();
+                attachment = $("#theme-attachment").data('snip');
                 // The json they provide, along with it's parsed version
                 themeJsonString = $("#theme-json-input").val();
                 themeJsonData = JSON.parse(themeJsonString);
