@@ -38,11 +38,12 @@
 
                 responseJson = "";
                 $.get("snippet/"+attachment+".json", function(data, status){
-                    responseJson = data
+                    responseJson = data;
+                    $("#theme-attachment-output").val(JSON.stringify(responseJson));
                 });
-                let combinedJson = Object.assign(responseJson, themeJsonData);
-                combinedJsonString = JSON.stringify(combinedJson);
-                $("#theme-attachment-output").val(combinedJsonString);
+                //let combinedJson = Object.assign(responseJson, themeJsonData);
+                //combinedJsonString = JSON.stringify(combinedJson);
+                //$("#theme-attachment-output").val(combinedJsonString);
             }
         </script>
     </body>
