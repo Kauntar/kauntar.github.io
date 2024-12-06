@@ -41,10 +41,9 @@
                 try{
                     themeJsonData = JSON.parse(themeJsonString);
                     let responseJson = "";
-                    responseJsonString = $.get("snippet/"+attachment+".json", function(data, status){
+                    responseJson = $.get("snippet/"+attachment+".json", function(data, status){
                         return data;
                     });
-                    responseJson = JSON.parse(responseJsonString);
                     combinedJson = $.extend(responseJson, themeJsonData);
                     combinedJsonString = JSON.stringify(combinedJson);
                     $("#theme-attachment-output").val(combinedJsonString);
