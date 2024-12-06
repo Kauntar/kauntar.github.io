@@ -47,6 +47,7 @@
                     combinedJsonString = JSON.stringify(combinedJson);
                     $("#theme-attachment-output").val(combinedJsonString);
                 } catch (err) {
+                    console.log(err);
                     alert("Failed to combine, please check your JSON!");
                 }
             }
