@@ -8,13 +8,14 @@
             .input{padding:5px;margin:10px;background:gray;cursor:pointer;}
             textarea.input{width:75%;height:200px;}
             .rule{height:1px;background:white;width:100%;}
-            .question-mark{border:1px solid blue;border-radius:100px;padding:0 5px;color:blue!important;text-decoration:none;}
+            .link{color:blue!important;text-decoration:none;}
+            .question-mark{border:1px solid blue;border-radius:100px;padding:0 5px;}
         </style>
     </head>
     <body>
-        <div style=""text-align:center;>
+        <div style="text-align:center;">
             <div style="border:1px solid white;border-radius:15px;text-align:center;width:100%;">
-                <label for="theme-json-input">Theme JSON <a class="question-mark" title="How do I get this?" target="_blank" href="../tutorial/get-json/">?</a></label><br>
+                <label for="theme-json-input">Theme JSON <a class="question-mark link" title="How do I get this?" target="_blank" href="../tutorial/get-json/">?</a></label><br>
                 <textarea class="input" id="theme-json-input"></textarea><br>
                 <label for="theme-attachment">Attachment Choice</label><br>
                 <select class="input" id="theme-attachment">
@@ -29,7 +30,7 @@
                 <textarea class="input" id="theme-attachment-output"></textarea>
             </div>
             <br>
-            Want to submit your own code?
+            Have an idea or need help? <a class="link" href="https://questioncove.com/users/extrinix" target="_blank">Contact me</a> on <a class="link" href="https://questioncove.com/" target="_blank">QuestionCove</a>!
         </div>
         <script>
             runThemeAttachment = function() {
