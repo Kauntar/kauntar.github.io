@@ -30,10 +30,18 @@
         </div>
         <script>
             runThemeAttachment = function() {
-                attachment    = $("#theme-attachment").val();
-                themeJsonData = $("#theme-json-input").val();
-                outputData = attachment + themeJsonData;
-                $("#theme-attachment-output").val(outputData);
+                // The code snippet of choice
+                attachment = $("#theme-attachment").val();
+                // The json they provide, along with it's parsed version
+                themeJsonString = $("#theme-json-input").val();
+                themeJsonData = JSON.parse(themeJsonString);
+
+                responseJson = "";
+                $.get("snippet/"+attachment+".json", function(data, status){
+                    responseJson = JSON.parse(data);
+                });
+                let combinedJson = Object.assign(responseJson, themeJsonData);
+                $("#theme-attachment-output").val(combinedJson);
             }
         </script>
     </body>

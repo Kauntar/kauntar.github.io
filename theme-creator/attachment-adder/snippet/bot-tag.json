@@ -1,0 +1,20 @@
+{
+    "body.search-landing-verbiage-free-fast-tutoring.logged-in > div#content-container > div#content > div.page-content > section.dashboard.pane.current-pane > div#online-users > ul > li.user.moderator > h4 > a.user-link.username[href='/users/aeon']::before": {
+        "background": "#00c5c5!important","color":"white!important",
+        "content": "'BOT'!important;",
+        "font-size":"8px;","padding":"0 2px","border-radius":"3px","margin-right":"3px"
+    },
+    "comment": {
+        "comment1":"here's a comment"
+    },
+    "body.search-landing-verbiage-free-fast-tutoring.logged-in > div#content-container > div#content > section#group-chats > div > div.visible-chats > section.group-chat.info-closed.svg-logo.chat-open > div.chat-content > ol.chat-list > li.chat.moderator > div.messages > a.message.username.user.user-link[data-id='aeon']::before": {
+        "background": "#00c5c5!important;","color":"white",
+        "content": "'BOT'!important;",
+        "font-size":"8px;","padding":"0 2px","border-radius":"3px","margin-right":"3px"
+    },
+    "body.search-landing-verbiage-free-fast-tutoring.logged-in > div#header-container > header#main-header > div.authorized.logged-in > ul.header-icons.logged-in.home.indicators > li#message-indicator.message.messages.letter.panel-container.message-indicator.logged-in.open > div#message-panel.panel > div#top-bar.active > span#top-username.tier-2.moderator > a.user-link.user.username[data-id='aeon']::before": {
+        "background": "#00c5c5!important;","color":"white",
+        "content": "'BOT'!important;",
+        "font-size":"8px;","padding":"0 2px","border-radius":"3px","margin-right":"3px","top":"-4px;","position":"relative;"
+    }
+}
