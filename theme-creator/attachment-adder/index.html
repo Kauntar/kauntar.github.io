@@ -38,7 +38,7 @@
 
                 responseJson = "";
                 $.get("snippet/"+attachment+".json", function(data, status){
-                    responseJson = JSON.stringify(data);
+                    responseJson = JSON.parse(data);
                 });
                 let combinedJson = Object.assign(responseJson, themeJsonData);
                 combinedJsonString = JSON.stringify(combinedJson);
