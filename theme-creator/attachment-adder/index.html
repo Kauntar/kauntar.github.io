@@ -12,30 +12,28 @@
     </head>
     <body>
         <div>
-            <form style="padding:5px;">
-                <div style="border:1px solid white;border-radius:15px;text-align:center;width:100%;">
-                    <label for="theme-json-input">Theme JSON</label><br>
-                    <textarea class="input" id="theme-json-input"></textarea><br>
-                    <label for="theme-attachment">Attachment Choice</label><br>
-                    <select class="input" id="theme-attachment">
-                        <option val="bot-tag">Bot Tag</option>
-                    </select>
-                    <br>
-                    <button onclick="runThemeAttachment()" style="background:red;border:darkred;border-radius:15px;padding:3px;">Combine</button>
-                    <br><br>
-                    <div class="rule"></div>
-                    <br>
-                    <label for="theme-attachment-output">Output:</label><br>
-                    <textarea class="input" id="theme-attachment-output"></textarea>
-                </div>
-            </form>
+            <div style="padding:5px;border:1px solid white;border-radius:15px;text-align:center;width:100%;">
+                <label for="theme-json-input">Theme JSON</label><br>
+                <textarea class="input" id="theme-json-input"></textarea><br>
+                <label for="theme-attachment">Attachment Choice</label><br>
+                <select class="input" id="theme-attachment">
+                    <option val="bot-tag">Bot Tag</option>
+                </select>
+                <br>
+                <button onclick="runThemeAttachment()" style="background:red;border:darkred;border-radius:15px;padding:3px;">Combine</button>
+                <br><br>
+                <div class="rule"></div>
+                <br>
+                <label for="theme-attachment-output">Output:</label><br>
+                <textarea class="input" id="theme-attachment-output"></textarea>
+            </div>
         </div>
         <script>
             runThemeAttachment = function() {
                 attachment    = $("#theme-attachment").val();
                 themeJsonData = $("#theme-json-input").val();
                 outputData = attachment + themeJsonData;
-                $("#theme-attachment-output").val = outputData;
+                $("#theme-attachment-output").val(outputData);
             }
         </script>
     </body>
