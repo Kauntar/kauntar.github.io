@@ -38,13 +38,17 @@
                 attachment = $("#theme-attachment").val();
                 // The json they provide, along with it's parsed version
                 themeJsonString = $("#theme-json-input").val();
-                themeJsonData = JSON.parse(themeJsonString);
-                $.get("snippet/"+attachment+".json", function(data, status){
-                    responseJson = data;
-                });
-                combinedJson = $.extend(responseJson, themeJsonData);
-                combinedJsonString = JSON.stringify(combinedJson);
-                $("#theme-attachment-output").val(combinedJsonString);
+                try{
+                    themeJsonData = JSON.parse(themeJsonString);
+                    $.get("snippet/"+attachment+".json", function(data, status){
+                        responseJson = data;
+                    });
+                    combinedJson = $.extend(responseJson, themeJsonData);
+                    combinedJsonString = JSON.stringify(combinedJson);
+                    $("#theme-attachment-output").val(combinedJsonString);
+                } catch (err) {
+                    alert("Failed to combine, please check your JSON!");
+                }
             }
         </script>
     </body>
