@@ -38,6 +38,7 @@
                 attachment = $("#theme-attachment").val();
                 // The json they provide, along with it's parsed version
                 themeJsonString = $("#theme-json-input").val();
+                responseJson = "";
                 try{
                     themeJsonData = JSON.parse(themeJsonString);
                     $.get("snippet/"+attachment+".json", function(data, status){
