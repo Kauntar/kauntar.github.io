@@ -1,1 +1,21 @@
-You're not supposed to be here!
+<img src=""/>
+<script>
+    var qS = window.location.search.substring(1);
+    var x = decodeURI(qS);
+    console.log(qS +" [][] "+ x);
+    $.ajax({
+        url: "achievements.json",
+        type: "GET",
+        dataType: "json",
+        success: function(data) {
+            if(x in data){
+                image = data[x];
+            } else {
+                image = "https://minecraft.wiki/images/Knowledge_Book_JE2.png?c1af4";
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log("Error: " + textStatus);
+        }
+    });
+</script>
