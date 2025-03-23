@@ -12,9 +12,9 @@
         success: function(data) {
             if(x in data){
                 image = data[x];
-                $('#image').src(image);
+                $('#image').src = image;
             } else {
-                $('#image').src(image);
+                $('#image').src = image;
             }
         },
         error: function(jqXHR, textStatus, errorThrown) {
