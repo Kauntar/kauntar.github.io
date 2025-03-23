@@ -12,11 +12,11 @@
         success: function(data) {
             if(x in data){
                 image = data[x];
-                var image = $("<img src=${image} />");
+                var image = $(`<img src="${image}" />`);
                 console.log("Image: "+image);
                 $('body').append(image);
             } else {
-                var image = $("<img src=${image} />");
+                var image = $(`<img src="${image}" />`);
                 console.log("Image: "+image);
                 $('body').append(image);
             }
