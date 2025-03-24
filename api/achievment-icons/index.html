@@ -11,15 +11,13 @@
         success: function(data) {
             if(x in data){
                 image = data[x];
-                /*var div = $(`<img src="${image}" />`);
+                var div = $(`<img src="${image}" />`);
                 console.log("Image: "+image);
-                $('body').append(div);*/
-                window.location.href = image;
+                $('body').append(div);
             } else {
-                /*var div = $(`<img src="${image}" />`);
+                var div = $(`<img src="${image}" />`);
                 console.log("Image: "+image);
-                $('body').append(div);*/
-                window.location.href = image;
+                $('body').append(div);
             }
         },
         error: function(jqXHR, textStatus, errorThrown) {
