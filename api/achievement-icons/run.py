@@ -1,0 +1,153 @@
+import requests
+import shutil
+from fake_useragent import UserAgent
+import urllib
+from urllib import request
+from selenium import webdriver
+
+advancements = {
+    "Minecraft":"https://minecraft.wiki/images/Invicon_Grass_Block.png",
+    "Stone Age":"https://minecraft.wiki/images/Invicon_Wooden_Pickaxe.png?86864",
+    "Getting an Upgrade":"https://minecraft.wiki/images/Invicon_Stone_Pickaxe.png?2f2c2",
+    "Acquire Hardware":"https://minecraft.wiki/images/Invicon_Iron_Ingot.png?ea489",
+    "Suit Up":"https://minecraft.wiki/images/Invicon_Iron_Chestplate.png?8eca0",
+    "Hot Stuff":"https://minecraft.wiki/images/Invicon_Lava_Bucket.png?f0734",
+    "Isn't It Iron Pick":"https://minecraft.wiki/images/Invicon_Iron_Pickaxe.png?64d21",
+    "Not Today, Thank You":"https://minecraft.wiki/images/Invicon_Shield.png?67b0b",
+    "Ice Bucket Challenge":"https://minecraft.wiki/images/Invicon_Obsidian.png?51174",
+    "Diamonds!":"https://minecraft.wiki/images/Invicon_Diamond.png?18e8a",
+    "We Need to Go Deeper":"https://minecraft.wiki/images/Invicon_Flint_and_Steel.png?96769",
+    "Cover Me with Diamonds":"https://minecraft.wiki/images/Invicon_Diamond_Chestplate.png?3ab66",
+    "Enchanter":"https://minecraft.wiki/images/Invicon_Enchanted_Book.gif?85252",
+    "Zombie Doctor":"https://minecraft.wiki/images/Invicon_Golden_Apple.png?637e4",
+    "Eye Spy":"https://minecraft.wiki/images/Invicon_Eye_of_Ender.png?d24aa",
+    "The End?":"https://minecraft.wiki/images/Invicon_End_Stone.png?ed341",
+    "Nether":"https://minecraft.wiki/images/Invicon_Red_Nether_Bricks.png?341af",
+    "Return to Sender":"https://minecraft.wiki/images/Invicon_Fire_Charge.png?9df86",
+    "Those Were the Days":"https://minecraft.wiki/images/Invicon_Polished_Blackstone_Bricks.png?1f85b",
+    "Hidden in the Depths":"https://minecraft.wiki/images/Invicon_Ancient_Debris.png?7af74",
+    "Subspace Bubble":"https://minecraft.wiki/images/Invicon_Empty_Map.png?332c3",
+    "A Terrible Fortress":"https://minecraft.wiki/images/Invicon_Nether_Bricks.png?5642b",
+    "Who is Cutting Onions?":"https://minecraft.wiki/images/Invicon_Crying_Obsidian.png?eb75b",
+    "Oh Shiny":"https://minecraft.wiki/images/Invicon_Gold_Ingot.png?cb854",
+    "This Boat Has Legs":"https://minecraft.wiki/images/Invicon_Warped_Fungus_on_a_Stick.png?3254f",
+    "Uneasy Alliance":"https://minecraft.wiki/images/Invicon_Ghast_Tear.png?394c9",
+    "War Pigs":"https://minecraft.wiki/images/Invicon_Chest.png?1cab7",
+    "Country Lode, Take Me Home":"https://minecraft.wiki/images/Invicon_Lodestone.png?e73c9",
+    "Cover Me in Debris":"https://minecraft.wiki/images/Invicon_Netherite_Chestplate.png?1b0d8",
+    "Spooky Scary Skeleton":"https://minecraft.wiki/images/Invicon_Wither_Skeleton_Skull.png?80d3f",
+    "Into Fire":"https://minecraft.wiki/images/Invicon_Blaze_Rod.png?00856",
+    "Not Quite \"Nine\" Lives":"https://minecraft.wiki/images/Invicon_Respawn_Anchor.png?ef7a4",
+    "Feels Like Home":"https://minecraft.wiki/images/Invicon_Warped_Fungus_on_a_Stick.png?3254f",
+    "Hot Tourist Destinations":"https://minecraft.wiki/images/Invicon_Netherite_Boots.png?f5c33",
+    "Withering Heights":"https://minecraft.wiki/images/Invicon_Nether_Star.gif?afad5",
+    "Local Brewery":"https://minecraft.wiki/images/Invicon_Uncraftable_Potion.png?f4261",
+    "Bring Home the Beacon":"https://minecraft.wiki/images/Invicon_Beacon.png?05dc8",
+    "A Furious Cocktail":"https://minecraft.wiki/images/Invicon_Milk_Bucket.png?686de",
+    "Beaconator":"https://minecraft.wiki/images/Invicon_Beacon.png?05dc8",
+    "How Did We Get Here?":"https://minecraft.wiki/images/Invicon_Bucket.png?5693e",
+    "Enter The End":"https://minecraft.wiki/images/Invicon_End_Stone.png?ed341",
+    "The End":"https://minecraft.wiki/images/Invicon_End_Stone.png?ed341",
+    "Free the End":"https://minecraft.wiki/images/Invicon_Dragon_Head.png?9a8cb",
+    "The Next Generation":"https://minecraft.wiki/images/Invicon_Dragon_Egg.png?b6b74",
+    "Remote Gateway":"https://minecraft.wiki/images/Invicon_Ender_Pearl.png?0933a",
+    "The End... Again...":"https://minecraft.wiki/images/Invicon_End_Crystal.gif?8decb",
+    "You Need a Mint":"https://minecraft.wiki/images/Invicon_Dragon%27s_Breath.png?66142",
+    "The City at the End of the Game":"https://minecraft.wiki/images/Invicon_Purpur_Block.png?f13e9",
+    "Sky's the Limit":"https://minecraft.wiki/images/Invicon_Elytra.png?40c07",
+    "Great View From Up Here":"https://minecraft.wiki/images/Invicon_Shulker_Shell.png?b1594",
+    "Adventure":"https://minecraft.wiki/images/Invicon_Empty_Map.png?332c3",
+    "Voluntary Exile":"https://minecraft.wiki/images/Invicon_Ominous_Banner.png?6fa92",
+    "Is It a Bird?":"https://minecraft.wiki/images/Invicon_Spyglass.png?3cfb2",
+    "Monster Hunter":"https://minecraft.wiki/images/Invicon_Iron_Sword.png?563c5",
+    "The Power of Books":"https://minecraft.wiki/images/Invicon_Chiseled_Bookshelf.png?9c667",
+    "What a Deal!":"https://minecraft.wiki/images/Invicon_Emerald.png?39910",
+    "Crafting a New Look":"https://minecraft.wiki/images/Invicon_Dune_Armor_Trim.png?b4d68",
+    "Sticky Situation":"https://minecraft.wiki/images/Invicon_Honey_Block.png?f9137",
+    "Ol' Betsy":"https://minecraft.wiki/images/Invicon_Crossbow.png?3188b",
+    "Surge Protector":"https://minecraft.wiki/images/Invicon_Lightning_Rod.png?a82c9",
+    "Caves & Cliffs":"https://minecraft.wiki/images/Invicon_Water_Bucket.png?a0466",
+    "Respecting the Remnants":"https://minecraft.wiki/images/Invicon_Brush.png?afa3f",
+    "Sneak 100":"https://minecraft.wiki/images/Invicon_Sculk_Sensor.gif?4dcc2",
+    "Sweet Dreams":"https://minecraft.wiki/images/Invicon_Red_Bed.png?aaddb",
+    "Hero of the Village":"https://minecraft.wiki/images/Invicon_Ominous_Banner.png?6fa92",
+    "Is It a Balloon?":"https://minecraft.wiki/images/Invicon_Spyglass.png?3cfb2",
+    "A Throwaway Joke":"https://minecraft.wiki/images/Invicon_Trident.png?8b726",
+    "It Spreads":"https://minecraft.wiki/images/Invicon_Sculk_Catalyst.png?85e14",
+    "Take Aim":"https://minecraft.wiki/images/Invicon_Bow.png?66f96",
+    "Monsters Hunted":"https://minecraft.wiki/images/Invicon_Diamond_Sword.png?0e1c0",
+    "Postmortal":"https://minecraft.wiki/images/Invicon_Totem_of_Undying.png?ad7ee",
+    "Hired Help":"https://minecraft.wiki/images/Invicon_Carved_Pumpkin.png?e630d",
+    "Star Trader":"https://minecraft.wiki/images/Invicon_Emerald.png?39910",
+    "Smithing with Style":"https://minecraft.wiki/images/Invicon_Silence_Armor_Trim.png?ca758",
+    "Two Birds, One Arrow":"https://minecraft.wiki/images/Invicon_Crossbow.png?3188b",
+    "Who's the Pillager Now?":"https://minecraft.wiki/images/Invicon_Crossbow.png?3188b",
+    "Arbalistic":"https://minecraft.wiki/images/Invicon_Crossbow.png?3188b",
+    "Careful Restoration":"https://minecraft.wiki/images/Invicon_Decorated_Pot.png?c2fd1",
+    "Adventuring Time":"https://minecraft.wiki/images/Invicon_Diamond_Boots.png?b9292",
+    "Sound of Music":"https://minecraft.wiki/images/Invicon_Jukebox.png?20aad",
+    "Light as a Rabbit":"https://minecraft.wiki/images/Invicon_Leather_Boots.png?50d5b",
+    "Is It a Plane?":"https://minecraft.wiki/images/Invicon_Spyglass.png?3cfb2",
+    "Very Very Frightening":"https://minecraft.wiki/images/Invicon_Trident.png?8b726",
+    "Sniper Duel":"https://minecraft.wiki/images/Invicon_Arrow.png?243fa",
+    "Bullseye":"https://minecraft.wiki/images/Invicon_Target.png?c4e33",
+    "Isn't It Scute?":"https://minecraft.wiki/images/Invicon_Armadillo_Scute.png?75484",
+    "Minecraft: Trial(s) Edition":"https://minecraft.wiki/images/Invicon_Chiseled_Tuff.png?b18e7",
+    "Crafters Crafting Crafters":"https://minecraft.wiki/images/Invicon_Crafter.png?c13ff",
+    "Lighten Up":"https://minecraft.wiki/images/Invicon_Copper_Bulb.png?b18e7",
+    "Who Needs Rockets?":"https://minecraft.wiki/images/Invicon_Wind_Charge.png?711b5",
+    "Under Lock and Key":"https://minecraft.wiki/images/ItemSprite_trial-key.png?9e6c1",
+    "Revaulting":"https://minecraft.wiki/images/Invicon_Ominous_Trial_Key.png?af583",
+    "Blowback":"https://minecraft.wiki/images/Invicon_Wind_Charge.png?711b5",
+    "Over-Overkill":"https://minecraft.wiki/images/Invicon_Mace.png?705a8",
+    "Husbandry":"https://minecraft.wiki/images/Invicon_Hay_Bale.png?85228",
+    "Bee Our Guest":"https://minecraft.wiki/images/Invicon_Honey_Bottle.png?00989",
+    "The Parrots and the Bats":"https://minecraft.wiki/images/Invicon_Wheat.png?09002",
+    "You've Got a Friend in Me":"https://minecraft.wiki/images/Invicon_Cookie.png?5bae6",
+    "Whatever Floats Your Goat!":"https://minecraft.wiki/images/Invicon_Oak_Boat.png?486af",
+    "Best Friends Forever":"https://minecraft.wiki/images/Invicon_Lead.png?fce21",
+    "Glow and Behold!":"https://minecraft.wiki/images/Invicon_Glow_Ink_Sac.png?327c4",
+    "Fishy Business":"https://minecraft.wiki/images/Invicon_Fishing_Rod.png?ae445",
+    "Total Beelocation":"https://minecraft.wiki/images/Invicon_Bee_Nest.png?3c007",
+    "Bukkit Bukkit":"https://minecraft.wiki/images/Invicon_Bucket_of_Tadpole.png?d7833",
+    "Smells Interesting":"https://minecraft.wiki/images/Invicon_Sniffer_Egg.png?0add6",
+    "A Seedy Place":"https://minecraft.wiki/images/Invicon_Wheat.png?09002",
+    "Wax On":"https://minecraft.wiki/images/Invicon_Honeycomb.png?8095a",
+    "Two by Two":"https://minecraft.wiki/images/Invicon_Golden_Carrot.png?ad4eb",
+    "Birthday Song":"https://minecraft.wiki/images/Invicon_Note_Block.png?a3073",
+    "A Complete Catalogue":"https://minecraft.wiki/images/Invicon_Raw_Cod.png?d2bf9",
+    "Tactical Fishing":"https://minecraft.wiki/images/Invicon_Bucket_of_Pufferfish.png?dc5c2",
+    "When the Squad Hops into Town":"https://minecraft.wiki/images/Invicon_Lead.png?fce21",
+    "Little Sniffs":"https://minecraft.wiki/images/Invicon_Torchflower_Seeds.png?a3745",
+    "A Balanced Diet":"https://minecraft.wiki/images/Invicon_Apple.png?e002e",
+    "Serious Dedication":"https://minecraft.wiki/images/Invicon_Netherite_Hoe.png?38238",
+    "Wax Off":"https://minecraft.wiki/images/Invicon_Stone_Axe.png?6f5e2",
+    "The Cutest Predator":"https://minecraft.wiki/images/Invicon_Bucket_of_Axolotl.png?a0aef",
+    "With Our Powers Combined!":"https://minecraft.wiki/images/Invicon_Verdant_Froglight.png?81257",
+    "Planting the Past":"https://minecraft.wiki/images/Invicon_Pitcher_Pod.png?8f208",
+    "The Healing Power of Friendship!":"https://minecraft.wiki/images/Invicon_Bucket_of_Tropical_Fish.png?61b50",
+    "Good as New":"https://minecraft.wiki/images/Invicon_Wolf_Armor.png?4c967",
+    "The Whole Pack":"https://minecraft.wiki/images/Invicon_Bone.png?d8310",
+    "Shear Brilliance":"https://minecraft.wiki/images/Invicon_Shears.png?b943a"
+}
+
+ua = UserAgent()
+user_agent = ua.random
+headers = {'User-Agent': user_agent}
+
+driver = webdriver.Firefox()
+for adv in advancements:
+    """r = requests.get(advancements[adv], stream=True, headers=headers)
+    adv_fixed = adv.replace(" ", "").replace("?","").replace('"', "\"").replace("\'", "")
+    print(f"Copying file: {adv_fixed}.png")
+    with open(f"sprites/wiki/{adv_fixed}.png", 'wb') as f:
+        #shutil.copyfileobj(r.raw, f)
+        f.write(r.content)
+    del r
+    f.close()"""
+    adv_fixed = adv.replace(" ", "").replace("?","").replace('"', "\"").replace("\'", "")
+    driver.get(advancements[adv])
+    urllib.request.urlretrieve(advancements[adv])#, f"sprites/wiki/{adv_fixed}.png")
+
+driver.close()
+    
